@@ -11,8 +11,6 @@ const generateFontURL = (name,text)=>{
 
     if(!text) return requestAnimationFrame(onOver);
 
-    console.log(text);
-
     const unicode = str2utf8(text).join();
     const fontURL = `${fontAPI}?name=${name}&unicode=${unicode}&type=woff`;
 
@@ -74,7 +72,6 @@ const downFontFile = async _=>{
     let r = await axios.get(fontURL,{
         responseType: 'arraybuffer'
     });
-    console.log(r.data);
     writeFileSync('html/字体.woff',r.data,'binary');
 };
 

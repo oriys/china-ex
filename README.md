@@ -4,6 +4,12 @@
 
 https://lab.magiconch.com/china-ex/
 
+## 本 fork
+
+线上地址：https://china.ychy.me
+
+首次打开默认将江苏（苏州）、浙江、香港、广东、上海标记为“游玩”。之后的修改仍保存在浏览器本地。
+
 有感兴趣画简化矢量地图的小伙伴欢迎来一起整活儿~ 
 
 ## [全球版在这里！🤗](https://github.com/itorr/world-ex)

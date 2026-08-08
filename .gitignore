@@ -1,6 +1,11 @@
 Un/*
 *.css
-package-lock.json
+!app/globals.css
 china-ex-fixed.svg
-dist/*
+dist/
+.next/
+.vinext/
+.wrangler/
+node_modules/
 html/字体.woff
+public/legacy/

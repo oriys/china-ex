@@ -53,7 +53,8 @@ const reader = async _=>{
     writeFileSync('china-ex-fixed.svg',xml);
 
 
-    if(!existsSync('dist')) mkdirSync('dist');
+    const 输出目录 = 'public/legacy';
+    if(!existsSync(输出目录)) mkdirSync(输出目录,{ recursive: true });
 
     let html = readFileSync('html/index.html','utf8');
 
@@ -83,7 +84,7 @@ const reader = async _=>{
     html = minify(html,options);
 
 
-    writeFileSync('dist/index.html',html,'utf8');
+    writeFileSync(`${输出目录}/index.html`,html,'utf8');
 
 
 
@@ -106,7 +107,7 @@ const reader = async _=>{
         throw minified;
     }
     jsText = minified.code;
-    writeFileSync('dist/脚本.js',jsText,'utf8');
+    writeFileSync(`${输出目录}/脚本.js`,jsText,'utf8');
 
     const cssText = await Less.render(
         readFileSync('html/样式.less','utf8'),
@@ -116,8 +117,8 @@ const reader = async _=>{
             yuicompress: false,
         }
     );
-    writeFileSync('dist/样式.css',cssText.css,'utf8');
-    copyFileSync('html/字体.woff','dist/字体.woff');
+    writeFileSync(`${输出目录}/样式.css`,cssText.css,'utf8');
+    copyFileSync('html/字体.woff',`${输出目录}/字体.woff`);
 };
 
 reader();
