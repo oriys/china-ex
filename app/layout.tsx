@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "记录我去过的中国省级行政区域",
   openGraph: {
     title: "我的中国制霸地图",
-    description: "江苏、浙江、香港、广东、上海，继续点亮新的足迹。",
+    description: "在浙江生活过，也去过江苏、福建、香港、广东和上海。",
     url: "https://china.ychy.me",
     siteName: "我的中国制霸地图",
     locale: "zh_CN",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "我的中国制霸地图",
-    description: "江苏、浙江、香港、广东、上海，继续点亮新的足迹。",
+    description: "在浙江生活过，也去过江苏、福建、香港、广东和上海。",
     images: ["/og.png"],
   },
 };
