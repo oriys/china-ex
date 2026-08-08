@@ -16,6 +16,8 @@ body,
   height: 100%;
   margin: 0;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .map-frame {
@@ -24,4 +26,5 @@ body,
   height: 100%;
   border: 0;
   background: #efb4b4;
+  pointer-events: none;
 }

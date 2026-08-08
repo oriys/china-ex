@@ -12,6 +12,8 @@ https://lab.magiconch.com/china-ex/
 
 本站由 GitHub Pages 自动构建和发布。
 
+当前页面为纯展示模式：不显示分数和外链，也不能选择文字或操作地图。
+
 有感兴趣画简化矢量地图的小伙伴欢迎来一起整活儿~ 
 
 ## [全球版在这里！🤗](https://github.com/itorr/world-ex)

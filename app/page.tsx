@@ -5,7 +5,7 @@ export default function Home() {
         className="map-frame"
         src="/legacy/index.html"
         title="我的中国制霸地图"
-        allow="clipboard-write"
+        tabIndex={-1}
       />
     </main>
   );

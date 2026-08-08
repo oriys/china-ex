@@ -38,7 +38,7 @@ const ver = Math.floor(+new Date()/10000).toString(36);
 const replaceVersion = text => text.replace(/\{version\}/g,ver);
 
 
-const { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } = require('fs');
+const { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, rmSync } = require('fs');
 
 
 
@@ -54,7 +54,8 @@ const reader = async _=>{
 
 
     const 输出目录 = 'public/legacy';
-    if(!existsSync(输出目录)) mkdirSync(输出目录,{ recursive: true });
+    if(existsSync(输出目录)) rmSync(输出目录,{ recursive: true, force: true });
+    mkdirSync(输出目录,{ recursive: true });
 
     let html = readFileSync('html/index.html','utf8');
 
@@ -85,30 +86,6 @@ const reader = async _=>{
 
 
     writeFileSync(`${输出目录}/index.html`,html,'utf8');
-
-
-
-    const UglifyJS = require('uglify-js');
-
-
-    let jsText = readFileSync('html/脚本.js','utf8');
-
-    jsText = replaceVersion(jsText);
-    jsText = jsText.replace(/<!--.+?-->/g,'');
-    jsText = jsText.replace(/^\s{0,}\/\/.+/g,'');
-    jsText = `(_=>{${jsText}})()`;
-    const minified = UglifyJS.minify({
-        '脚本.js':jsText
-    },{
-        // drop_console: true,
-        // pass: 3
-    })
-    if(!minified.code){
-        throw minified;
-    }
-    jsText = minified.code;
-    writeFileSync(`${输出目录}/脚本.js`,jsText,'utf8');
-
     const cssText = await Less.render(
         readFileSync('html/样式.less','utf8'),
         {

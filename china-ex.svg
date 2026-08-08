@@ -7,8 +7,7 @@ text{
 	fill:#111;
 	font-size:30px;
 }
-#标题,
-#分数{font-size:60px;}
+#标题{font-size:60px;}
 .fs24{font-size:24px;}
 #地区 path,
 #曾母暗沙,
@@ -22,8 +21,7 @@ text{
 }
 #地区 path{
     fill:#FFF;
-    cursor: pointer;
-    pointer-events: auto;
+    pointer-events:none;
 }
 #曾母暗沙,
 .边框{fill:none;}
@@ -51,16 +49,16 @@ text{
 	<path id="湖北" d="M779,688v-81H654v81H779z"/>
 	<path id="青海" d="M442,626V395H228v231H442z"/>
 	<path id="辽宁" d="M861,276v119h154V276H861z"/>
-	<path id="广东" d="M823,788H679v81h144V788z"/>
-	<path id="江苏" d="M899,538v87h-62v-87H899z"/>
+	<path id="广东" level="3" d="M823,788H679v81h144V788z"/>
+	<path id="江苏" level="3" d="M899,538v87h-62v-87H899z"/>
 	<path id="江西" d="M852,806V676H749v130H852z"/>
-	<path id="浙江" d="M852,625l74,1v107h-74V625z"/>
-	<path id="福建" d="M823,733v107h73V733H823z"/>
-	<path id="上海" d="M882 602h72v47H882Z"/>
+	<path id="浙江" level="5" d="M852,625l74,1v107h-74V625z"/>
+	<path id="福建" level="3" d="M823,733v107h73V733H823z"/>
+	<path id="上海" level="3" d="M882 602h72v47H882Z"/>
 	<path id="陕西" d="M585,653h69V418h-69V653z"/>
 	<path id="湖南" d="M654,688h95v100h-95V688z"/>
 	<path id="广西" d="M679,788H537v81h142V788z"/>
-	<path id="香港" d="M758 856h42v33H758Z"/>
+	<path id="香港" level="3" d="M758 856h42v33H758Z"/>
 	<path id="澳门" d="M701 856h45v33H701Z"/>
 	<path id="贵州" d="M654,709H537v79h117V709z"/>
 	<path id="重庆" d="M565 653h89v56H565Z"/>
@@ -119,10 +117,6 @@ text{
 	<text x="767" y="880" class="fs24">港</text>
 	<text x="711" y="880" class="fs24">澳</text>
 </g>
-<a href="https://lab.magiconch.com" target="_blank">
-	<text x="37" y="937">神奇海螺试验场</text>
-</a>
-<text id="分数" x="35" y="883">分数</text>
 <g id="等级">
 	<path fill="#FF7E7E" d="M983 450h120v50H983Z"/>
 	<path fill="#FFB57E" d="M983 500h120v50H983Z"/>
