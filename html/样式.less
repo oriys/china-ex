@@ -1,9 +1,3 @@
-@font-face {
-    font-family: '字体';
-    src: url('字体.woff') format('woff');
-    font-display: swap;
-}
-
 html,
 body {
     width: 100%;
@@ -12,6 +6,7 @@ body {
     overflow: hidden;
     background: #efb4b4;
     color: #111;
+    font-family: ui-rounded, "SF Pro Rounded", "PingFang SC", "Microsoft YaHei", sans-serif;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -23,14 +18,58 @@ svg {
     pointer-events: auto;
 }
 
+#省份地图 {
+    font-family: inherit;
+}
+
+#标题 {
+    fill: #111;
+    font-size: 52px;
+    text-anchor: middle;
+}
+
 #地区 path {
+    fill: #fff;
+    fill-rule: evenodd;
+    stroke: #111;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    cursor: pointer;
     outline: none;
     transition: filter .16s ease, stroke-width .16s ease;
 
     &:hover,
     &:focus-visible {
         filter: brightness(.94);
-        stroke-width: 8;
+        stroke-width: 5;
+    }
+}
+
+#地区 path[level="5"] { fill: #FF7E7E; }
+#地区 path[level="4"] { fill: #FFB57E; }
+#地区 path[level="3"] { fill: #FFE57E; }
+#地区 path[level="2"] { fill: #A8FFBE; }
+#地区 path[level="1"] { fill: #88AEFF; }
+
+#地名 {
+    pointer-events: none;
+
+    text {
+        fill: #111;
+        font-size: 26px;
+        text-anchor: middle;
+        dominant-baseline: central;
+        paint-order: stroke fill;
+        stroke: rgba(255,255,255,.82);
+        stroke-width: 3px;
+        stroke-linejoin: round;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .小地名 {
+        font-size: 20px;
     }
 }
 
@@ -61,7 +100,7 @@ svg {
     border: 4px solid #111;
     border-radius: 20px;
     box-shadow: 10px 12px 0 rgba(17, 17, 17, .18);
-    font-family: '字体', sans-serif;
+    font-family: inherit;
 
     header {
         display: flex;
