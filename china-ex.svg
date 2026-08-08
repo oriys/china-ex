@@ -21,8 +21,13 @@ text{
 }
 #地区 path{
     fill:#FFF;
-    pointer-events:none;
+    cursor:pointer;
+    pointer-events:auto;
 }
+#地名,
+#标题,
+#等级,
+#曾母暗沙{pointer-events:none;}
 #曾母暗沙,
 .边框{fill:none;}
 #地区 path[level="5"]{fill:#FF7E7E;}

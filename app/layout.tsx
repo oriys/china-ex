@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://china.ychy.me"),
   title: "我的中国制霸地图",
-  description: "记录我去过的中国省级行政区域",
+  description: "记录我去过的中国省级行政区域，点击省份可以查看下属城市",
   openGraph: {
     title: "我的中国制霸地图",
     description: "在浙江生活过，也去过江苏、福建、香港、广东和上海。",

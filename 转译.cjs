@@ -44,6 +44,81 @@ const { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, rmSync
 
 const Less = require('less');
 
+const 省代码们 = {
+    北京: '11',
+    天津: '12',
+    河北: '13',
+    山西: '14',
+    内蒙古: '15',
+    辽宁: '21',
+    吉林: '22',
+    黑龙江: '23',
+    上海: '31',
+    江苏: '32',
+    浙江: '33',
+    安徽: '34',
+    福建: '35',
+    江西: '36',
+    山东: '37',
+    河南: '41',
+    湖北: '42',
+    湖南: '43',
+    广东: '44',
+    广西: '45',
+    海南: '46',
+    重庆: '50',
+    四川: '51',
+    贵州: '52',
+    云南: '53',
+    西藏: '54',
+    陕西: '61',
+    甘肃: '62',
+    青海: '63',
+    宁夏: '64',
+    新疆: '65',
+    台湾: '71',
+    香港: '81',
+    澳门: '82'
+};
+
+const 直辖地区代码们 = new Set(['11','12','31','50','81','82']);
+const 台湾地区们 = [
+    '台北市','新北市','桃园市','台中市','台南市','高雄市',
+    '基隆市','新竹市','嘉义市','新竹县','苗栗县','彰化县',
+    '南投县','云林县','嘉义县','屏东县','宜兰县','花莲县',
+    '台东县','澎湖县','金门县','连江县'
+];
+
+const 生成城市数据 = 输出目录=>{
+    const 行政区划 = require('@province-city-china/data');
+    const 城市数据 = {};
+
+    Object.entries(省代码们).forEach(([省份,省代码])=>{
+        if(省代码 === '71'){
+            城市数据[省份] = 台湾地区们;
+            return;
+        }
+
+        城市数据[省份] = 行政区划
+            .filter(地区=>{
+                if(String(地区.province) !== 省代码 || Number(地区.town) !== 0) return false;
+                if(直辖地区代码们.has(省代码)) return Number(地区.area) !== 0;
+
+                const 是地级地区 = Number(地区.city) !== 0 && Number(地区.area) === 0;
+                const 是直管地区 = Number(地区.city) === 90 && Number(地区.area) !== 0;
+                return (是地级地区 && !地区.name.includes('直辖县级行政区划')) || 是直管地区;
+            })
+            .sort((甲,乙)=>甲.code.localeCompare(乙.code))
+            .map(地区=>地区.name);
+    });
+
+    writeFileSync(
+        `${输出目录}/城市数据.js`,
+        `globalThis.城市数据=${JSON.stringify(城市数据)};`,
+        'utf8'
+    );
+};
+
 
 const reader = async _=>{
 
@@ -96,6 +171,8 @@ const reader = async _=>{
     );
     writeFileSync(`${输出目录}/样式.css`,cssText.css,'utf8');
     copyFileSync('html/字体.woff',`${输出目录}/字体.woff`);
+    copyFileSync('html/城市.js',`${输出目录}/城市.js`);
+    生成城市数据(输出目录);
 };
 
 reader();

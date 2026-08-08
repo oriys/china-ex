@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>我的中国制霸地图</title>
-	<meta name="description" content="记录我去过的中国省级行政区域">
+	<meta name="description" content="记录我去过的中国省级行政区域，点击省份可以查看下属城市">
 	<meta name="keywords" content="中国制霸,旅行足迹,中国地图">
 	<link rel="canonical" href="https://china.ychy.me/">
 	<meta property="og:title" content="我的中国制霸地图">
@@ -18,5 +18,19 @@
 </head>
 <body>
 <!--svg-->
+<div id="城市遮罩" hidden></div>
+<aside id="城市面板" role="dialog" aria-modal="true" aria-labelledby="省份标题" hidden>
+	<header>
+		<div>
+			<p id="省份状态"></p>
+			<h2 id="省份标题"></h2>
+		</div>
+		<button id="关闭城市面板" type="button" aria-label="关闭城市列表">×</button>
+	</header>
+	<p class="城市说明">地级及直管地区</p>
+	<ul id="城市列表"></ul>
+</aside>
+<script src="城市数据.js?v={version}"></script>
+<script src="城市.js?v={version}"></script>
 </body>
 </html>

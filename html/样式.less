@@ -20,7 +20,154 @@ svg {
     display: block;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    pointer-events: auto;
+}
+
+#地区 path {
+    outline: none;
+    transition: filter .16s ease, stroke-width .16s ease;
+
+    &:hover,
+    &:focus-visible {
+        filter: brightness(.94);
+        stroke-width: 8;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}
+
+#城市遮罩 {
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background: rgba(38, 24, 24, .28);
+    backdrop-filter: blur(3px);
+}
+
+#城市面板 {
+    position: fixed;
+    z-index: 11;
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    width: min(390px, calc(100vw - 32px));
+    padding: 24px;
+    overflow: hidden;
+    flex-direction: column;
+    background: #fffaf6;
+    border: 4px solid #111;
+    border-radius: 20px;
+    box-shadow: 10px 12px 0 rgba(17, 17, 17, .18);
+    font-family: '字体', sans-serif;
+
+    header {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    h2,
+    p {
+        margin: 0;
+    }
+
+    h2 {
+        margin-top: 4px;
+        font-size: clamp(30px, 5vw, 44px);
+        line-height: 1.1;
+    }
+}
+
+#省份状态,
+.城市说明 {
+    color: #6f5a5a;
+    font-size: 14px;
+    letter-spacing: .08em;
+}
+
+.城市说明 {
+    margin-top: 24px !important;
+}
+
+#关闭城市面板 {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    padding: 0 0 4px;
+    flex: 0 0 auto;
+    place-items: center;
+    color: #111;
+    background: #efb4b4;
+    border: 3px solid #111;
+    border-radius: 50%;
+    font: 34px/1 sans-serif;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        background: #ff9494;
+        outline: none;
+    }
+}
+
+#城市列表 {
+    display: grid;
+    margin: 10px 0 0;
+    padding: 0 4px 8px 0;
+    overflow: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    list-style: none;
+
+    li {
+        display: flex;
+        min-height: 44px;
+        padding: 9px 12px;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        border: 2px solid #111;
+        border-radius: 10px;
+        font-size: 15px;
+        line-height: 1.25;
+    }
+
+    .已去过 {
+        background: #FFE57E;
+    }
+}
+
+.城市标记 {
+    padding: 3px 5px;
+    flex: 0 0 auto;
+    color: #fff;
+    background: #111;
+    border-radius: 5px;
+    font: 11px/1 sans-serif;
+}
+
+@media (max-width: 640px) {
+    #城市面板 {
+        top: auto;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: auto;
+        max-height: min(68vh, 620px);
+        padding: 20px;
+        border-width: 3px;
+        border-radius: 18px;
+        box-shadow: 7px 8px 0 rgba(17, 17, 17, .18);
+    }
+
+    #城市列表 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 ::selection {
