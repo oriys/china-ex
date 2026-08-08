@@ -3,8 +3,9 @@
     const 遮罩 = document.querySelector('#城市遮罩');
     const 标题 = document.querySelector('#省份标题');
     const 状态 = document.querySelector('#省份状态');
-    const 列表 = document.querySelector('#城市列表');
+    const 地图 = document.querySelector('#城市地图');
     const 关闭按钮 = document.querySelector('#关闭城市面板');
+    const SVG命名空间 = 'http://www.w3.org/2000/svg';
     const 状态名称 = {
         5: '居住',
         4: '短居',
@@ -49,6 +50,51 @@
     };
     let 上次触发元素 = null;
 
+    const 创建SVG元素 = 名称=>document.createElementNS(SVG命名空间,名称);
+
+    const 绘制城市地图 = (省份,城市等级们)=>{
+        const 地图数据 = globalThis.城市地图数据?.[省份];
+        地图.setAttribute('aria-label',`${省份}城市地图`);
+        地图.replaceChildren();
+
+        if(!地图数据) return 0;
+
+        const 地区层 = 创建SVG元素('g');
+        const 地名层 = 创建SVG元素('g');
+        地区层.setAttribute('class','城市地区');
+        地名层.setAttribute('class','城市地名');
+
+        地图数据.regions.forEach(地区=>{
+            const 路径 = 创建SVG元素('path');
+            const 城市等级 = 城市等级们[地区.name];
+            路径.setAttribute('d',地区.d);
+            路径.setAttribute('aria-label',`${地区.name}${城市等级 ? `，${状态名称[城市等级]}` : ''}`);
+            if(城市等级) 路径.dataset.level = 城市等级;
+            地区层.append(路径);
+
+            const 文字 = 创建SVG元素('text');
+            const 标签 = 地区.label;
+            const 每行字数 = 标签.length > 6 ? Math.ceil(标签.length / 2) : 标签.length;
+            const 行们 = 标签.length > 6
+                ? [标签.slice(0,每行字数),标签.slice(每行字数)]
+                : [标签];
+            文字.setAttribute('x',地区.x);
+            文字.setAttribute('y',地区.y);
+            文字.style.fontSize = `${地区.fontSize}px`;
+            行们.forEach((行,序号)=>{
+                const 行文字 = 创建SVG元素('tspan');
+                行文字.setAttribute('x',地区.x);
+                行文字.setAttribute('dy',序号 === 0 && 行们.length > 1 ? '-.42em' : 序号 ? '1em' : '0');
+                行文字.textContent = 行;
+                文字.append(行文字);
+            });
+            地名层.append(文字);
+        });
+
+        地图.append(地区层,地名层);
+        return 地图数据.regions.length;
+    };
+
     const 关闭面板 = ()=>{
         面板.hidden = true;
         遮罩.hidden = true;
@@ -58,33 +104,13 @@
 
     const 打开面板 = 省份元素=>{
         const 省份 = 省份元素.id;
-        const 城市们 = globalThis.城市数据?.[省份] || [];
         const 城市等级们 = 城市足迹[省份] || {};
         const 等级 = 省份元素.getAttribute('level');
-        const 列数 = Math.min(8,Math.max(2,Math.ceil(Math.sqrt(城市们.length * 1.35))));
-        const 移动列数 = Math.min(4,Math.max(2,Math.ceil(Math.sqrt(城市们.length))));
 
         上次触发元素 = 省份元素;
         标题.textContent = 省份;
-        状态.textContent = `${状态名称[等级] || '未标记'} · ${城市们.length}个地区`;
-        列表.setAttribute('aria-label',`${省份}城市地图`);
-        列表.style.setProperty('--城市列数',列数);
-        列表.style.setProperty('--城市移动列数',移动列数);
-        列表.replaceChildren(...城市们.map(城市=>{
-            const 项目 = document.createElement('li');
-            const 名称 = document.createElement('span');
-            const 城市等级 = 城市等级们[城市];
-            名称.textContent = 城市;
-            项目.append(名称);
-            if(城市等级){
-                项目.dataset.level = 城市等级;
-                const 标记 = document.createElement('span');
-                标记.className = '城市标记';
-                标记.textContent = 状态名称[城市等级];
-                项目.append(标记);
-            }
-            return 项目;
-        }));
+        const 地区数量 = 绘制城市地图(省份,城市等级们);
+        状态.textContent = `${状态名称[等级] || '未标记'} · ${地区数量}个地区`;
         面板.hidden = false;
         遮罩.hidden = false;
         document.body.setAttribute('data-panel-open','');
