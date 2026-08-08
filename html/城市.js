@@ -13,7 +13,38 @@
         1: '路过'
     };
     const 城市足迹 = {
-        江苏: ['苏州市']
+        上海: {
+            黄浦区: 3,
+            徐汇区: 3,
+            长宁区: 3,
+            静安区: 3,
+            普陀区: 3,
+            虹口区: 3,
+            杨浦区: 3
+        },
+        江苏: {
+            南京市: 3,
+            无锡市: 3,
+            常州市: 3,
+            苏州市: 3
+        },
+        浙江: {
+            杭州市: 5,
+            宁波市: 5,
+            湖州市: 3,
+            绍兴市: 3,
+            舟山市: 3,
+            台州市: 3
+        },
+        福建: {
+            福州市: 3,
+            厦门市: 3,
+            泉州市: 3
+        },
+        广东: {
+            广州市: 3,
+            深圳市: 3
+        }
     };
     let 上次触发元素 = null;
 
@@ -27,7 +58,7 @@
     const 打开面板 = 省份元素=>{
         const 省份 = 省份元素.id;
         const 城市们 = globalThis.城市数据?.[省份] || [];
-        const 已去过城市 = new Set(城市足迹[省份] || []);
+        const 城市等级们 = 城市足迹[省份] || {};
         const 等级 = 省份元素.getAttribute('level');
 
         上次触发元素 = 省份元素;
@@ -36,13 +67,14 @@
         列表.replaceChildren(...城市们.map(城市=>{
             const 项目 = document.createElement('li');
             const 名称 = document.createElement('span');
+            const 城市等级 = 城市等级们[城市];
             名称.textContent = 城市;
             项目.append(名称);
-            if(已去过城市.has(城市)){
-                项目.className = '已去过';
+            if(城市等级){
+                项目.dataset.level = 城市等级;
                 const 标记 = document.createElement('span');
                 标记.className = '城市标记';
-                标记.textContent = '去过';
+                标记.textContent = 状态名称[城市等级];
                 项目.append(标记);
             }
             return 项目;
