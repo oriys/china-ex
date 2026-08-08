@@ -10,6 +10,8 @@ https://lab.magiconch.com/china-ex/
 
 浙江默认标记为“居住”；江苏（苏州）、福建、香港、广东、上海默认标记为“游玩”。之后的修改仍保存在浏览器本地。
 
+本站由 GitHub Pages 自动构建和发布。
+
 有感兴趣画简化矢量地图的小伙伴欢迎来一起整活儿~ 
 
 ## [全球版在这里！🤗](https://github.com/itorr/world-ex)
