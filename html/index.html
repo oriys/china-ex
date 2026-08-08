@@ -25,10 +25,13 @@
 			<p id="省份状态"></p>
 			<h2 id="省份标题"></h2>
 		</div>
-		<button id="关闭城市面板" type="button" aria-label="关闭城市列表">×</button>
+		<button id="关闭城市面板" type="button" aria-label="关闭城市地图">×</button>
 	</header>
-	<p class="城市说明">地级及直管地区</p>
-	<ul id="城市列表"></ul>
+	<p class="城市说明">地级及直管地区 · 方块地图</p>
+	<div class="城市地图舞台">
+		<span class="指北针" aria-hidden="true">N</span>
+		<ul id="城市列表" aria-label="城市地图"></ul>
+	</div>
 </aside>
 <script src="城市数据.js?v={version}"></script>
 <script src="城市.js?v={version}"></script>

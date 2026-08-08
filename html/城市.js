@@ -31,6 +31,7 @@
         浙江: {
             杭州市: 5,
             宁波市: 5,
+            嘉兴市: 3,
             湖州市: 3,
             绍兴市: 3,
             舟山市: 3,
@@ -60,10 +61,15 @@
         const 城市们 = globalThis.城市数据?.[省份] || [];
         const 城市等级们 = 城市足迹[省份] || {};
         const 等级 = 省份元素.getAttribute('level');
+        const 列数 = Math.min(8,Math.max(2,Math.ceil(Math.sqrt(城市们.length * 1.35))));
+        const 移动列数 = Math.min(4,Math.max(2,Math.ceil(Math.sqrt(城市们.length))));
 
         上次触发元素 = 省份元素;
         标题.textContent = 省份;
         状态.textContent = `${状态名称[等级] || '未标记'} · ${城市们.length}个地区`;
+        列表.setAttribute('aria-label',`${省份}城市地图`);
+        列表.style.setProperty('--城市列数',列数);
+        列表.style.setProperty('--城市移动列数',移动列数);
         列表.replaceChildren(...城市们.map(城市=>{
             const 项目 = document.createElement('li');
             const 名称 = document.createElement('span');
